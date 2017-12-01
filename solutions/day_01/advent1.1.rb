@@ -5,11 +5,10 @@ def input
 end
 
 def calculate_captcha(offset)
-  pairs = input.each_with_index.map do |e, i|
+  input.each_with_index.map do |e, i|
     index = (i + offset) % input.length
     e == input[index] ? e : 0
-  end
-  pairs.reduce :+
+  end.reduce :+
 end
 
 if __FILE__ == $0
