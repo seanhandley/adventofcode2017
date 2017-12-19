@@ -20,12 +20,8 @@ def get_firewall
   ]
 end
 
-def firewall
-  @firewall ||= get_firewall.dup
-end
-
 def travel
-  journey = firewall.map do |index, info|
+  journey = @firewall.map do |index, info|
     caught = (info[:pos] == 0)
     res = caught ? (index * info[:range]) : 0
     move_scanners
@@ -38,8 +34,15 @@ def travel
   end
 end
 
-def move_scanners
-  firewall.each do |index, info|
+@firewall ||= get_firewall.clone
+@firewall_history = []
+
+def move_scanners(i=nil)
+  # if i && @firewall_history[i-1]
+  #   @firewall = @firewall_history[i-1].clone
+  # end
+
+  @firewall.each do |index, info|
     next if info[:range] == 0
     if info[:dir] == :down
       if (info[:range] - 1) == info[:pos]
@@ -57,6 +60,9 @@ def move_scanners
       end
     end
   end
+  # if i
+  #   @firewall_history << @firewall.clone
+  # end
 end
 
 if __FILE__ == $0

@@ -2,11 +2,10 @@
 
 def steps
   @steps ||= STDIN.read.to_i
-  37
 end
 
 def limit
-  20
+  50_000_000
 end
 
 def buffer
@@ -15,26 +14,16 @@ end
 
 trap "SIGINT" do
   puts buffer.length
-  puts buffer[buffer.find_index(0)+1]
+  puts buffer[1]
 end
 
 def calculate
+  move = 0
   (1..limit).each do |n|
-    zero_index = buffer.find_index(0)
-    move = (zero_index+steps) % buffer.length
-    if move == zero_index+1
-      buffer.insert(move, n)
-    elsif move > zero_index
-      buffer << n
-    else
-      buffer.unshift n
-    end
-    p move
-    p zero_index
-    puts
+    move = (move+steps) % buffer.length + 1
+    move == 1 ? buffer.insert(1, n) : buffer.push(n)
   end
-  p buffer
-  buffer[buffer.find_index(0)+1]
+  buffer[1]
 end
 
 p calculate
