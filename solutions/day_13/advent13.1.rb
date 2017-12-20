@@ -37,11 +37,7 @@ end
 @firewall ||= get_firewall.clone
 @firewall_history = []
 
-def move_scanners(i=nil)
-  # if i && @firewall_history[i-1]
-  #   @firewall = @firewall_history[i-1].clone
-  # end
-
+def move_scanners
   @firewall.each do |index, info|
     next if info[:range] == 0
     if info[:dir] == :down
@@ -60,9 +56,6 @@ def move_scanners(i=nil)
       end
     end
   end
-  # if i
-  #   @firewall_history << @firewall.clone
-  # end
 end
 
 if __FILE__ == $0

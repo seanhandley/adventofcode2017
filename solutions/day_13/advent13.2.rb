@@ -2,18 +2,22 @@
 
 require 'pp'
 
+def deep_copy(o)
+  Marshal.load(Marshal.dump(o))
+end
+
 def input
-  # @input ||= Hash[
-  #   STDIN.read.split("\n").map do |line|
-  #     line.split(":").map(&:strip).map(&:to_i)
-  #   end
-  # ].freeze
-  {
-    0 => 3,
-    1 => 2,
-    4 => 4,
-    6 => 4
-  }
+  @input ||= Hash[
+    STDIN.read.split("\n").map do |line|
+      line.split(":").map(&:strip).map(&:to_i)
+    end
+  ].freeze
+  # {
+  #   0 => 3,
+  #   1 => 2,
+  #   4 => 4,
+  #   6 => 4
+  # }
 end
 
 def get_firewall
@@ -40,14 +44,7 @@ def travel
   end
 end
 
-@firewall ||= get_firewall.clone
-@firewall_history = []
-
 def move_scanners(dry = false)
-  if dry
-    @firewall = @firewall_history.last.clone if @firewall_history.any?
-  end
-
   @firewall.each do |index, info|
     next if info[:range] == 0
     if info[:dir] == :down
@@ -66,28 +63,17 @@ def move_scanners(dry = false)
       end
     end
   end
-  
-  if dry
-    @firewall_history << @firewall.clone
-  end
-end
-
-def reset
-  @get_firewall = nil
-  @firewall     = get_firewall.clone
 end
 
 @t = 0
 
 def evade_capture
   while true do
-    # @t.times { move_scanners }
-    move_scanners(true)
+    @firewall = @last_state || deep_copy(get_firewall)
     return @t unless travel[0]
+    move_scanners
+    @last_state = deep_copy(@firewall)
     @t += 1
-    reset
-
-    break if @t == 12
   end
 end
 
