@@ -32,8 +32,9 @@ def calculate
       x -= 1
       y -= 1
     end
+    max = [max, manhattan(x,y,z)].max
   end
-  manhattan(x,y,z)
+  max
 end
 
 p calculate
