@@ -12,12 +12,6 @@ def input
       line.split(":").map(&:strip).map(&:to_i)
     end
   ].freeze
-  # {
-  #   0 => 3,
-  #   1 => 2,
-  #   4 => 4,
-  #   6 => 4
-  # }
 end
 
 def get_firewall
