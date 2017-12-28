@@ -66,5 +66,5 @@ def grid
 end
 
 if __FILE__ == $0
-  p grid.flatten.select{|c| c == "#"}.length
+  p grid.flatten.count{|c| c == "#"}
 end

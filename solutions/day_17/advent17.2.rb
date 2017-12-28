@@ -17,6 +17,12 @@ trap "SIGINT" do
   puts buffer[1]
 end
 
+# Because inserts get more expensive as an array
+# grows, we only insert elements that will be placed
+# in position 1 (position 0 is always 0). All other
+# elements can simply be pushed to the end of the
+# array, which gives us a linear time complexity
+# rather than quadratic.
 def calculate
   move = 0
   (1..limit).each do |n|

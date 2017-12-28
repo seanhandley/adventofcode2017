@@ -9,7 +9,6 @@ def registers
 end
 
 def parse_and_execute(instruction)
-  # kd dec -37 if gm <= 9
   a, b = instruction.split("if")
   register, operation, value  = a.strip.split
   cond_reg, cond_op, cond_val = b.strip.split

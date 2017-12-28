@@ -23,7 +23,7 @@ def parse_and_execute(instruction)
     when "inc"
       registers[register] += value.to_i
     end
-    @highest = registers[register] if registers[register] > @highest
+    @highest = [registers[register], @highest].max
   end
 end
 

@@ -1,8 +1,8 @@
-#!/usr/bin/env elixir
+#! /usr/bin/env elixir
 
-Code.require_file "redistribute.exs", __DIR__
+Code.require_file("redistribute.ex", __DIR__)
 
-{memory, _} = Redistribute.memory |> Redistribute.execute
+{memory, _} = Redistribute.execute()
 
 {_, redistributions} = Redistribute.execute(memory, MapSet.new(memory))
-redistributions |> IO.puts
+redistributions |> IO.puts()

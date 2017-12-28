@@ -8,6 +8,8 @@ def limit
   2017
 end
 
+# Rather than worry about positioning,
+# it's easier to just rotate the whole collection.
 def calculate
   buffer = [0]
   (1..limit).each do |n|

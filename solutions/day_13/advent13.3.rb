@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
 def input
-  # @input ||= STDIN.read.split("\n").map do |line|
-  #   line.split(":").map(&:strip).map(&:to_i)
-  # end
-  @input ||= [[0,3],[1,2],[4,4],[6,4]]
+  @input ||= STDIN.read.split("\n").map do |line|
+    line.split(":").map(&:strip).map(&:to_i)
+  end
+  # @input ||= [[0,3],[1,2],[4,4],[6,4]]
   # {
   #   0 => 3,
   #   1 => 2,
@@ -70,13 +70,13 @@ end
 def evade_capture
   while true do
     @firewall = @last_state || get_firewall.clone
-    p @t
+    # p @t
     return @t unless travel
     move_scanners
     @last_state = @firewall.clone
-    p @last_state
+    # p @last_state
     @t += 1
-    exit if @t > 12
+    # exit if @t > 12
   end
 end
 
